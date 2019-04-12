@@ -15,6 +15,10 @@ class App extends Component {
     this.onTermSubmit = this.onTermSubmit.bind(this)
   }
 
+  componentDidMount() {
+    this.onTermSubmit('nature')
+  }
+
   async onTermSubmit(term) {
     console.log(term)
     const response = await youtube.get('/search', {
@@ -23,7 +27,10 @@ class App extends Component {
       }
     })
     const { items } = response.data
-    this.setState({ videos: items })
+    this.setState({
+      videos: items,
+      selectedVideo: response.data.items[0]
+     })
     console.log(this.state.videos)
   }
 
